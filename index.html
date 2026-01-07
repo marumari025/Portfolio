@@ -1,49 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ポートフォリオ｜江藤 優真</title>
-  <style>
-    body {
-      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      line-height: 1.8;
-      margin: 40px;
-    }
-    h1, h2, h3 {
-      border-bottom: 2px solid #333;
-      padding-bottom: 4px;
-    }
-    ul {
-      margin-left: 20px;
-    }
-    hr {
-      margin: 40px 0;
-    }
-    .menu a {
-      text-decoration: none;
-      color: #0066cc;
-    }
-    .menu li {
-      margin: 4px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>ポートフォリオ（基礎テンプレート）</h1>
+<h1 class="page-title">ポートフォリオ（基礎テンプレート）</h1>
 
 <hr>
 
-<h2 id="cover">表紙</h2>
-<ul>
+<h2 class="section-title" id="cover">表紙</h2>
+<ul class="list">
   <li>学校名：横浜デジタルアーツ専門学校</li>
   <li>学科・学年：2年ゲーム科</li>
   <li>氏名：江藤 優真</li>
@@ -52,7 +23,7 @@
 
 <hr>
 
-<h2 id="menu">目次（メニュー）</h2>
+<h2 class="section-title" id="menu">目次（メニュー）</h2>
 <ol class="menu">
   <li><a href="#profile">自己紹介</a></li>
   <li><a href="#hobby">特技・趣味</a></li>
@@ -65,10 +36,13 @@
 
 <hr>
 
-<h2 id="profile">1. 自己紹介</h2>
-<img src="images/2140302_IMG_4924251105.jpg" alt="顔写真" width="200">
-<img src="images/2140302_IMG_4924251105.jpg" alt="顔写真" width="200">
-<ul>
+<h2 class="section-title" id="profile">1. 自己紹介</h2>
+<div class="profile-images">
+  <img src="images/2140302_IMG_4924251105.jpg" alt="顔写真" class="profile-img">
+  <img src="images/2140302_IMG_4924251105.jpg" alt="カジュアルな写真" class="profile-img">
+</div>
+
+<ul class="list">
   <li>名前：江藤 優真</li>
   <li>生年月日：2005年5月18日</li>
   <li>学校名：横浜デジタルアーツ専門学校</li>
@@ -77,157 +51,100 @@
 
 <hr>
 
-<h2 id="hobby">2. 特技・趣味</h2>
-<h3>特技</h3>
-<ul>
+<h2 class="section-title" id="hobby">2. 特技・趣味</h2>
+
+<h3 class="sub-title">特技</h3>
+<ul class="list">
   <li>人力車で人を運びながら案内できること</li>
   <li>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
 </ul>
 
-<h3>趣味</h3>
-<ul>
+<h3 class="sub-title">趣味</h3>
+<ul class="list">
   <li>
     ピカチュウのグッズ集め<br>
-    <img src="images\MyHobbyHouse.jpg" alt="趣味・部屋" width="400">
+    ↓自分の部屋の画像<br>
+    <img src="images/MyHobbyHouse.jpg" alt="趣味・部屋" class="content-img">
   </li>
-  
   <li>いろんな種類のゲームをやること</li>
 </ul>
 
 <hr>
 
-<h2 id="license">3. 資格・受賞歴（応募歴）</h2>
-<ul>
+<h2 class="section-title" id="license">3. 資格・受賞歴（応募歴）</h2>
+<ul class="list">
   <li>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
   <li>＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
 </ul>
 
 <hr>
 
-<h2 id="skill">4. 使用できる言語・ソフト</h2>
-<h3>プログラミング言語</h3>
-<ul>
+<h2 class="section-title" id="skill">4. 使用できる言語・ソフト</h2>
+
+<h3 class="sub-title">プログラミング言語</h3>
+<ul class="list">
   <li>C++：8か月</li>
   <li>C：1年</li>
   <li>Python：1年</li>
   <li>C#：1年8か月</li>
 </ul>
 
-<h3>ソフト・ツール</h3>
-<ul>
+<h3 class="sub-title">ソフト・ツール</h3>
+<ul class="list">
   <li>Unity（使用経験：1年8か月）</li>
   <li>Unreal（使用経験：8か月）</li>
 </ul>
 
 <hr>
 
-<h2 id="pr">5. 自己PR</h2>
-<h3>自分はどんな人か</h3>
-<ul>
+<h2 class="section-title" id="pr">5. 自己PR</h2>
+
+<h3 class="sub-title">自分はどんな人か</h3>
+<ul class="list">
   <li>
     プログラムが好きで、細かいところをこだわるのが結構好きです。
     内部の動きをこだわったり、ボタンを押したときの動き方等をこだわったりします
   </li>
 </ul>
 
-<h3>仕事で求められることに対してできること</h3>
-<ul>
+<h3 class="sub-title">仕事で求められることに対してできること</h3>
+<ul class="list">
   <li>活かせるスキル：CPPを使えること、エンジンを作った経験があること</li>
   <li>現在不足しているが努力していること：＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
 </ul>
 
-<h3>それを証明する実績・努力</h3>
-<ul>
+<h3 class="sub-title">それを証明する実績・努力</h3>
+<ul class="list">
   <li>作品①はCPP、自作エンジンで作成したものになっています</li>
 </ul>
 
 <hr>
 
-<h2 id="works">6. 作品紹介</h2>
+<h2 class="section-title" id="works">6. 作品紹介</h2>
 
-<h3>作品①（メイン）</h3>
-<ul>
+<h3 class="sub-title">作品①（メイン）</h3>
+<ul class="list">
   <li>作品タイトル：TypingGame</li>
   <li>スキルゲーム</li>
   <li>制作期間（時間）：2か月</li>
   <li>制作人数：１人</li>
   <li>使用ツール／言語：CPP・dxライブラリ</li>
-  <li>作品画像／動画：</li>
-    <video src="videos/play.mp4" controls width="400"></video>
-</ul>
-
-
-<h4>作品概要</h4>
-<p>dxライブラリを使ったりして、ゲームエンジンを作り、そのエンジンで作ったゲームです</p>
-
-<h4>アピールポイント</h4>
-<ul>
-<li>
-  <strong>C++ / DxLib を用いた制作</strong><br>
-  C++ と DxLib を使用し、描画・入力・更新処理を自分で制御することで、
-  ゲームの基本構造や低レイヤーの仕組みを理解した上で制作しています。
-</li>
-
-<li>
-  <strong>自作ゲームエンジンの開発</strong><br>
-  市販エンジンを使用せず、自作エンジン上でゲームを構築することで、
-  シーン管理やオブジェクト管理などの設計から実装までを一貫して行いました。
-</li>
-
-</ul>
-
-<h4>苦労した点</h4>
-
-
-<h4>工夫した点</h4>
-
-<p>
-  ゲーム制作をできるだけ簡単に行えるよう、独自のゲームエンジンを設計しました。
-</p>
-
-<ul>
   <li>
-    <strong>シーン管理の簡略化</strong><br>
-    シーンクラスを継承し、<code>Init</code> 関数を実装するだけで
-    新しいシーンを作成できるようにしました。
+    作品画像／動画：<br>
+    <video src="videos/play.mp4" controls class="video"></video>
   </li>
-
-  <li>
-    <strong>オブジェクト指向設計</strong><br>
-    オブジェクトクラスを継承することで、
-    <code>Update</code> など Unity で使われているような関数を用いて
-    振る舞いを実装できるようにしました。
-  </li>
-
-  <li>
-    <strong>メモリ管理の安全性</strong><br>
-    <code>std::vector&lt;std::unique_ptr&lt;T&gt;&gt;</code> を使用し、
-    <code>push_back(std::make_unique&lt;T&gt;())</code> によって
-    オブジェクトを安全かつ柔軟に生成できるようにしました。
-  </li>
-
-  <li>
-    <strong>汎用機能の整備</strong><br>
-    キー入力の判定、オブジェクト検索、座標系を左下原点（0,0）とする仕組みなど、
-    よく使う機能をあらかじめエンジン側に実装しました。
-  </li>
-</ul>
-
-
-<hr>
-
-<h3>その他の作品</h3>
-<ul>
-  <li>作品名／ジャンル／一言説明</li>
 </ul>
 
 <hr>
 
-<h2 id="contact">7. 連絡先</h2>
-<ul>
-  <li>メールアドレス：＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
+<h2 class="section-title" id="contact">7. 連絡先</h2>
+<ul class="list">
+  <li>メールアドレス：etouyuma@gmail.com</li>
   <li>ポートフォリオサイトURL：https://etoyumaportfolio.netlify.app/</li>
-  <li>QRコード：＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li>
+  <li>
+    QRコード：<br>
+    <img src="images/QR.png" alt="QRコード" class="qr">
+  </li>
 </ul>
 
 </body>

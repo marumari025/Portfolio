@@ -1,0 +1,78 @@
+body {
+  font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  line-height: 1.8;
+  margin: 40px;
+}
+
+.page-title {
+  border-bottom: 3px solid #333;
+  padding-bottom: 4px;
+}
+
+.section-title {
+  border-bottom: 2px solid #333;
+  padding-bottom: 4px;
+}
+
+.sub-title {
+  margin-top: 24px;
+}
+
+.list {
+  margin-left: 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+.menu li {
+  margin: 4px 0;
+}
+
+.profile-images {
+  display: flex;
+  gap: 16px;
+}
+
+.profile-img {
+  width: 200px;
+}
+
+.content-img {
+  width: 400px;
+}
+
+.video {
+  width: 400px;
+}
+
+.qr {
+  width: 156px;
+}
+
+/* ===== レスポンシブ ===== */
+
+/* スマホ */
+@media (max-width: 600px) {
+  body {
+    margin: 16px;
+  }
+
+  .profile-images {
+    flex-direction: column;
+  }
+
+  .content-img,
+  .video {
+    width: 100%;
+  }
+}
+
+/* タブレット */
+@media (max-width: 1024px) {
+  body {
+    margin: 24px;
+  }
+}
