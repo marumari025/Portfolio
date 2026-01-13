@@ -40,6 +40,10 @@ body {
   width: 200px;
 }
 
+.profile-img2 {
+  width: 250px;
+}
+
 .content-img {
   width: 400px;
 }
@@ -75,4 +79,57 @@ body {
   body {
     margin: 24px;
   }
+}
+
+/* 上部固定メニュー */
+.fixed-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 2px solid #333; /* メニュー全体の下線 */
+  z-index: 1000;
+}
+
+/* メニュー全体 */
+.fixed-menu .menu {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 各タブ */
+.fixed-menu .menu li {
+  border-right: 1px solid #ccc; /* タブ間の縦線 */
+}
+
+/* 最後のタブの線を消す */
+.fixed-menu .menu li:last-child {
+  border-right: none;
+}
+
+/* タブの中身 */
+.fixed-menu a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ホバー時 */
+.fixed-menu a:hover {
+  background-color: #f0f0f0;
+  color: #007acc;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.section-title {
+  scroll-margin-top: 80px;
 }
