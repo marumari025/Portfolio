@@ -1,203 +1,228 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ポートフォリオ｜江藤 優真</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/styleVer2.css">
 </head>
 
 <body>
 
-  <h1 class="page-title">ポートフォリオ（基礎テンプレート）</h1>
+<!-- 雷アニメーション（完全背景） -->
+<div id="thunder-container"></div>
 
-  <hr>
-
-  <h2 class="section-title" id="cover">表紙</h2>
-  <ul class="list">
-    <li>学校名：横浜デジタルアーツ専門学校</li>
-    <li>学科・学年：2年ゲーム科</li>
-    <li>氏名：江藤 優真</li>
-    <li>作成日：2025年12月16日</li>
+<!-- ===== 上部固定ナビ ===== -->
+<nav class="fixed-menu">
+  <ul class="menu">
+    <li><a href="#profile">自己紹介</a></li>
+    <li><a href="#hobby">特技・趣味</a></li>
+    <li><a href="#license">資格</a></li>
+    <li><a href="#skill">スキル</a></li>
+    <li><a href="#pr">自己PR</a></li>
+    <li><a href="#works">作品</a></li>
+    <li><a href="#contact">連絡先</a></li>
   </ul>
+</nav>
 
-  <hr>
+<main class="container">
 
-  <nav class="fixed-menu">
-    <ol class="menu">
-      <li><a href="#profile">自己紹介</a></li>
-      <li><a href="#hobby">特技・趣味</a></li>
-      <li><a href="#license">資格・受賞歴</a></li>
-      <li><a href="#skill">使用できる言語・ソフト</a></li>
-      <li><a href="#pr">自己PR</a></li>
-      <li><a href="#works">作品紹介</a></li>
-      <li><a href="#contact">連絡先</a></li>
-    </ol>
-  </nav>
+<h1 class="page-title">ポートフォリオ</h1>
 
-  <hr>
+<h2 class="section-title" id="profile">自己紹介</h2>
+<div class="profile-images">
+  <img src="images/2140302_IMG_4924251105.jpg" class="profile-img">
+  <img src="images/IMG_4467.png" class="profile-img2">
+</div>
 
-  <h2 class="section-title" id="profile">1. 自己紹介</h2>
-  <div class="profile-images">
-    <img src="images/2140302_IMG_4924251105.jpg" alt="顔写真" class="profile-img">
-    <img src="images\IMG_4467.png" alt="カジュアルな写真" class="profile-img2">
+<ul class="list">
+  <li>名前：江藤 優真</li>
+  <li>学校：横浜デジタルアーツ専門学校</li>
+  <li>学年：2年 ゲーム科</li>
+</ul>
+
+<h2 class="section-title" id="hobby">特技・趣味</h2>
+<ul class="list">
+  <li>特技：人力車での観光案内</li>
+  <li>趣味：ゲーム・グッズ収集</li>
+</ul>
+
+<h2 class="section-title" id="license">資格</h2>
+<ul class="list">
+  <li>CGクリエイター検定 ベーシック</li>
+  <li>情報検定（J検）3級</li>
+</ul>
+
+<h2 class="section-title" id="skill">使用スキル</h2>
+<ul class="list">
+  <li>C++ / C / C# / Python</li>
+  <li>Unity / Unreal Engine</li>
+</ul>
+
+<h2 class="section-title" id="pr">自己PR</h2>
+<p>
+  プログラムの内部構造や挙動にこだわることが得意です。
+</p>
+
+<h2 class="section-title" id="works">作品紹介</h2>
+
+<!-- ===== 作品カード ===== -->
+<div class="works-grid">
+
+  <!-- ▼ ここに作品①の画像を設定 -->
+  <div class="work-card" onclick="openModal('modal1')">
+    <img src="images/typinggame_card.png" alt="TypingGame">
+    <p>TypingGame</p>
   </div>
 
-  <ul class="list">
-    <li>名前：江藤 優真</li>
-    <li>生年月日：2005年5月18日</li>
-    <li>学校名：横浜デジタルアーツ専門学校</li>
-    <li>出身地：神奈川県小田原市</li>
-  </ul>
+  <!-- ▼ 作品②画像 -->
+  <div class="work-card" onclick="openModal('modal2')">
+    <img src="images\ddd_card.png" alt="DDD">
+    <p>DDD</p>
+  </div>
 
-  <hr>
+  <!-- ▼ 作品③画像 -->
+  <div class="work-card" onclick="openModal('modal3')">
+    <img src="images/suisoka_card.png" alt="すいそかゲーム">
+    <p>すいそかゲーム</p>
+  </div>
 
-  <h2 class="section-title" id="hobby">2. 特技・趣味</h2>
+  <!-- ▼ 作品④画像 -->
+  <div class="work-card" onclick="openModal('modal4')">
+    <img src="images/snakeblock_card.png" alt="SnakeBlock">
+    <p>SnakeBlock</p>
+  </div>
 
-  <h3 class="sub-title">特技</h3>
-  <ul class="list">
-    <li>人力車で人を運びながら案内できること</li>
-  </ul>
+</div>
 
-  <h3 class="sub-title">趣味</h3>
-  <ul class="list">
-    <li>
-      ピカチュウのグッズ集め<br>
-      ↓自分の部屋の画像<br>
-      <img src="images/MyHobbyHouse.jpg" alt="趣味・部屋" class="content-img">
-    </li>
-    <li>いろんな種類のゲームをやること</li>
-  </ul>
+<h2 class="section-title" id="contact">連絡先</h2>
+<ul class="list">
+  <li>Email：etouyuma@gmail.com</li>
+  <li>URL：https://etoyumaportfolio.netlify.app/</li>
+  <img src="images\QR.png" width="100" height="100">
+</ul>
 
-  <hr>
+</main>
 
-  <h2 class="section-title" id="license">3. 資格・受賞歴（応募歴）</h2>
-  <ul class="list">
-    <li>CGクリエイター検定ベーシック試験 </li>
-    <li>情報検定（J検）情報活用試験３級 </li>
-  </ul>
+<!-- ===== モーダル ===== -->
+<div class="modal" id="modal1">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal1')">&times;</span>
+    <h3>TypingGame</h3>
+    <video src="videos/play.mp4" controls></video>
+    <div class="description-box">
+      <b>概要</b><br>
+      使用言語 : cpp <br>
+      使用ライブラリ : DXライブラリ <br>
+      制作人数 : １人 <br>
+      <br>
+      <b>説明</b><br>
+      この作品はcppとdxライブラリを使ってエンジンを自作し、<br>
+      そのエンジンを使用し作成したゲームです。<br>
+      <br>
+      <b>工夫</b><br>
+      このゲームで使っているエンジンは、アップデート、FPSで分けているので、<br>
+      描画と、処理を分けることで軽く動くようにしています。<br>
+      <br>
+      <b>ゲーム説明</b><br>
+      真ん中に表示された単語の赤くなっている文字を入力すると<br>
+      スコアが１増えるので、<br>
+      時間切れになるまでにどれだけタイピングできたかを競うゲームです。<br>
+      終了後、3位までのスコアを超えたときは、<br>
+      自分のスコアが赤く表示されランキングに入ります。<br>
+    </div>
+  </div>
+</div>
 
-  <hr>
+<div class="modal" id="modal2">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal2')">&times;</span>
+    <h3>DDD</h3>
+    <video src="videos/DDD.mp4" controls></video>
+    <div class="description-box">
+     <b>概要</b><br>
+      使用言語 : unity <br>
+      制作人数 : 6人 <br>
+      制作担当 : プレイヤー<br>
+      <br>
+      <b>説明</b><br>
+      この作品はunityで作成したゲームです。<br>
+      学校のゲームジャムという即席チームで3日でゲームを作る<br>
+      イベントで、3日間で作成しました。<br>
+      <br>
+      <b>工夫</b><br>
+      敵をよける状態になったとき、<br>
+      敵と重なっているならよける状態がずっと続くようにしたこと、<br>
+      敵から離れた瞬間によける状態をすぐ解除するようにしました。<br>
+      <br>
+      <b>ゲーム説明</b><br>
+      敵をジャンプか、よける能力で避け続けてハイスコアを目指すゲームです。<br>
+      敵の近くでよけると、得点が上がるようになっています。<br>
+      薄い色の壁はよける能力じゃないと通り抜けられません。<br>
+    </div>
+  </div>
+</div>
 
-  <h2 class="section-title" id="skill">4. 使用できる言語・ソフト</h2>
+<div class="modal" id="modal3">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal3')">&times;</span>
+    <h3>すいそかゲーム</h3>
+    <video src="videos/suisoka.mp4" controls></video>
+    <div class="description-box">
+      <b>概要</b><br>
+      使用言語 : unity <br>
+      制作人数 : 5人 <br>
+      制作担当 : タイトル画面<br>
+      <br>
+      <b>説明</b><br>
+      この作品はunityで作成したゲームです。<br>
+      学校のゲームジャムという即席チームで3日でゲームを作る<br>
+      イベントのサークル版のイベントで、3日間で作成しました。<br>
+      <br>
+      <b>自身の工夫</b><br>
+      タイトルから移動するときにアニメーションを入れて、<br>
+      できるだけ楽しめるように頑張りました<br>
+      <br>
+      <b>ゲーム説明</b><br>
+      原子をなぞることでつなげることができ、<br>
+      そのつなげたものの中でできる物質が作られ、<br>
+      ポイントが加算されるゲームです<br>
+    </div>
+  </div>
+</div>
 
-  <h3 class="sub-title">プログラミング言語</h3>
-  <ul class="list">
-    <li>C++：8か月</li>
-    <li>C：1年</li>
-    <li>Python：1年</li>
-    <li>C#：1年8か月</li>
-  </ul>
+<div class="modal" id="modal4">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('modal4')">&times;</span>
+    <h3>SnakeBlock</h3>
+    <video src="videos/SnakeBlock.mp4" controls></video>
+    <div class="description-box">説明：テスト（SnakeBlock）</div>
+    <b>概要</b><br>
+      使用言語 : unity <br>
+      制作人数 : 4人 <br>
+      制作担当 : タイトル画面<br>
+      <br>
+      <b>説明</b><br>
+      この作品はunityで作成したゲームです。<br>
+      学校のゲームジャムという即席チームで3日でゲームを作る<br>
+      イベントのクラス版のイベントで、3日間で作成しました。<br>
+      <br>
+      <b>自身の工夫</b><br>
+      自作でドットのフォントのようなものを簡単に作れるものを制作し、<br>
+      スタートボタンやタイトルなどで使いました<br>
+      タイトルでブロックがずっと動くようにして目を引きやすいようにして、<br>
+      タイトルから移動するときにアニメーションを入れて、<br>
+      できるだけ楽しめるように頑張りました<br>
+      <br>
+      <b>ゲーム説明</b><br>
+      プレイヤーが陣地から出ると自分の後ろにしっぽを残し、<br>
+      それに自分や敵が当たったらゲームオーバーになります。<br>
+      自分や敵に当たらずに自陣に帰ることができると、<br>
+      尻尾で囲んだ部分が陣地になります。<br>
+      これで敵を倒すというのがこのゲームです。<br>
+  </div>
+</div>
 
-  <h3 class="sub-title">ソフト・ツール</h3>
-  <ul class="list">
-    <li>Unity（使用経験：1年8か月）</li>
-    <li>Unreal（使用経験：8か月）</li>
-  </ul>
-
-  <hr>
-
-  <h2 class="section-title" id="pr">5. 自己PR</h2>
-
-  <h3 class="sub-title">自分はどんな人か</h3>
-  <ul class="list">
-    <li>
-      プログラムが好きで、細かいところをこだわるのが結構好きです。
-      内部の動きをこだわったり、ボタンを押したときの動き方等をこだわったりします
-    </li>
-  </ul>
-
-  <h3 class="sub-title">仕事で求められることに対してできること</h3>
-  <ul class="list">
-    <li>活かせるスキル：CPPを使えること、エンジンを作った経験があること</li>
-    <!-- <li>現在不足しているが努力していること：＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿</li> -->
-  </ul>
-
-  <h3 class="sub-title">それを証明する実績・努力</h3>
-  <ul class="list">
-    <li>作品①はCPP、自作エンジンで作成したものになっています</li>
-  </ul>
-
-  <hr>
-
-  <h2 class="section-title" id="works">6. 作品紹介</h2>
-
-  <h3 class="sub-title">作品①（メイン）</h3>
-  <ul class="list">
-    <li>作品タイトル：TypingGame</li>
-    <li>スキルゲーム</li>
-    <li>早くタイピングをするゲームです</li>
-    <li>C++とDXライブラリで作った自作エンジンで作ったゲームです</li>
-    <li>制作期間（時間）：2か月(エンジン部分)+2日(ゲーム部分)</li>
-    <li>制作人数：１人</li>
-    <li>使用ツール／言語：CPP・dxライブラリ</li>
-    <li>
-      作品画像／動画：<br>
-      <video src="videos/play.mp4" controls class="video"></video>
-    </li>
-  </ul>
-
-  <h3 class="sub-title">作品②</h3>
-  <ul class="list">
-    <li>作品タイトル：DDD</li>
-    <li>ランゲーム</li>
-    <li>障害物や敵をすり抜けていくゲーム。</li>
-    <li>プレイヤーを担当し、
-      すり抜け中に元の状態に戻らなくしたり、
-      すり抜け状態効果が本来続く時間でも、
-      物体をすり抜けたなら元の状態に戻るようになどの工夫をした</li>
-    <li>制作期間（時間）：3日</li>
-    <li>制作人数：6人</li>
-    <li>使用ツール／言語：unity</li>
-    <li>担当場所：プレイヤーの動き</li>
-    <li>
-      作品画像／動画：<br>
-      <video src="videos\DDD.mp4" controls class="video"></video>
-    </li>
-  </ul>
-
-  <h3 class="sub-title">作品③</h3>
-  <ul class="list">
-    <li>作品タイトル：すいそかゲーム</li>
-    <li>パズルゲーム</li>
-    <li>制作期間（時間）：3日</li>
-    <li>制作人数：5人</li>
-    <li>使用ツール／言語：unity</li>
-    <li>担当場所：タイトルシーンの作成</li>
-    <li>
-      作品画像／動画：<br>
-      <video src="videos\suisoka.mp4" controls class="video"></video>
-    </li>
-  </ul>
-
-  <h3 class="sub-title">作品④</h3>
-  <ul class="list">
-    <li>作品タイトル：SnakeBlock</li>
-    <li>パズルゲーム</li>
-    <li>自分の陣地から出たときに残る跡で</li>
-    <li>制作期間（時間）：3日</li>
-    <li>制作人数：4人</li>
-    <li>使用ツール／言語：unity</li>
-    <li>担当場所：タイトルシーンの作成</li>
-    <li>
-      作品画像／動画：<br>
-      <video src="videos\SnakeBlock.mp4" controls class="video"></video>
-    </li>
-  </ul>
-
-  <hr>
-
-  <h2 class="section-title" id="contact">7. 連絡先</h2>
-  <ul class="list">
-    <li>メールアドレス：etouyuma@gmail.com</li>
-    <li>ポートフォリオサイトURL：https://etoyumaportfolio.netlify.app/</li>
-    <li>
-      QRコード：<br>
-      <img src="images/QR.png" alt="QRコード" class="qr">
-    </li>
-  </ul>
-
+<script src="js/scriptVer2.js"></script>
 </body>
-
 </html>
