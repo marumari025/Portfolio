@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,195 +10,208 @@
 
 <body>
 
-<!-- 雷アニメーション（完全背景） -->
-<div id="thunder-container"></div>
+  <!-- 雷アニメーション（完全背景） -->
+  <div id="thunder-container"></div>
 
-<!-- ===== 上部固定ナビ ===== -->
-<nav class="fixed-menu">
-  <ul class="menu">
-    <li><a href="#profile">自己紹介</a></li>
-    <li><a href="#hobby">特技・趣味</a></li>
-    <li><a href="#license">資格</a></li>
-    <li><a href="#skill">スキル</a></li>
-    <li><a href="#pr">自己PR</a></li>
-    <li><a href="#works">作品</a></li>
-    <li><a href="#contact">連絡先</a></li>
-  </ul>
-</nav>
+  <!-- ===== 上部固定ナビ ===== -->
+  <nav class="fixed-menu">
+    <ul class="menu">
+      <li><a href="#profile">自己紹介</a></li>
+      <li><a href="#hobby">特技・趣味</a></li>
+      <li><a href="#license">資格</a></li>
+      <li><a href="#skill">スキル</a></li>
+      <li><a href="#pr">自己PR</a></li>
+      <li><a href="#works">作品</a></li>
+      <li><a href="#contact">連絡先</a></li>
+      <li><a href="#GameEngine">自作エンジン</a></li>
+    </ul>
+  </nav>
 
-<main class="container">
+  <main class="container">
 
-<h1 class="page-title">ポートフォリオ</h1>
+    <h1 class="page-title">ポートフォリオ</h1>
 
-<h2 class="section-title" id="profile">自己紹介</h2>
-<div class="profile-images">
-  <img src="images/2140302_IMG_4924251105.jpg" class="profile-img">
-  <img src="images/IMG_4467.png" class="profile-img2">
-</div>
+    <h2 class="section-title" id="profile">自己紹介</h2>
+    <div class="profile-images">
+      <img src="images/2140302_IMG_4924251105.jpg" class="profile-img">
+      <img src="images/IMG_4467.png" class="profile-img2">
+    </div>
 
-<ul class="list">
-  <li>名前：江藤 優真</li>
-  <li>学校：横浜デジタルアーツ専門学校</li>
-  <li>学年：2年 ゲーム科</li>
-</ul>
+    <ul class="list">
+      <li>名前：江藤 優真</li>
+      <li>学校：横浜デジタルアーツ専門学校</li>
+      <li>学年：2年 ゲーム科</li>
+    </ul>
 
-<h2 class="section-title" id="hobby">特技・趣味</h2>
-<ul class="list">
-  <li>特技：人力車での観光案内</li>
-  <li>趣味：ゲーム・グッズ収集</li>
-</ul>
+    <h2 class="section-title" id="hobby">特技・趣味</h2>
+    <ul class="list">
+      <li>特技：人力車での観光案内</li>
+      <li>趣味：ゲーム・グッズ収集</li>
+    </ul>
 
-<h2 class="section-title" id="license">資格</h2>
-<ul class="list">
-  <li>CGクリエイター検定 ベーシック</li>
-  <li>情報検定（J検）3級</li>
-</ul>
+    <h2 class="section-title" id="license">資格</h2>
+    <ul class="list">
+      <li>CGクリエイター検定 ベーシック</li>
+      <li>情報検定（J検）3級</li>
+    </ul>
 
-<h2 class="section-title" id="skill">使用スキル</h2>
-<ul class="list">
-  <li>C++ / C / C# / Python</li>
-  <li>Unity / Unreal Engine</li>
-</ul>
+    <h2 class="section-title" id="skill">使用スキル</h2>
+    <ul class="list">
+      <li>C++ / C / C# / Python</li>
+      <li>Unity / Unreal Engine</li>
+    </ul>
 
-<h2 class="section-title" id="pr">自己PR</h2>
-<p>
-  プログラムの内部構造や挙動にこだわることが得意です。
-</p>
+    <h2 class="section-title" id="pr">自己PR</h2>
+    <p>
+      プログラムの内部構造や挙動にこだわることが得意です。
+    </p>
 
-<h2 class="section-title" id="works">作品紹介</h2>
+    <h2 class="section-title" id="works">作品紹介</h2>
 
-<!-- ===== 作品カード ===== -->
-<div class="works-grid">
+    <!-- ===== 作品カード ===== -->
+    <div class="works-grid">
 
-  <!-- ▼ ここに作品①の画像を設定 -->
-  <div class="work-card" onclick="openModal('modal1')">
-    <img src="images/typinggame_card.png" alt="TypingGame">
-    <p>TypingGame</p>
+      <!-- ▼ ここに作品①の画像を設定 -->
+      <div class="work-card" onclick="openModal('modal1')">
+        <img src="images/typinggame_card.png" alt="TypingGame">
+        <p>TypingGame</p>
+      </div>
+
+      <!-- ▼ 作品②画像 -->
+      <div class="work-card" onclick="openModal('modal2')">
+        <img src="images\ddd_card.png" alt="DDD">
+        <p>DDD</p>
+      </div>
+
+      <!-- ▼ 作品③画像 -->
+      <div class="work-card" onclick="openModal('modal3')">
+        <img src="images/suisoka_card.png" alt="すいそかゲーム">
+        <p>すいそかゲーム</p>
+      </div>
+
+      <!-- ▼ 作品④画像 -->
+      <div class="work-card" onclick="openModal('modal4')">
+        <img src="images/snakeblock_card.png" alt="SnakeBlock">
+        <p>SnakeBlock</p>
+      </div>
+
+    </div>
+
+    <h2 class="section-title" id="GameEngine">自作ゲームエンジン</h2>
+      <ul class="list">
+        <p>
+          C++で制作した自作ゲームエンジンです。
+          2Dゲーム制作を目的として、描画・入力・オブジェクト管理などの基礎機能を実装しています。
+        </p>
+        <a href="https://github.com/marumari025/MyGameEngine" target="_blank">
+          GitHub（MyGameEngine）
+        </a>
+      </ul>
+
+      <h2 class="section-title" id="contact">連絡先</h2>
+      <ul class="list">
+
+        <li>Email：etouyuma@gmail.com</li>
+        <li>URL：https://etoyumaportfolio.netlify.app/</li>
+        <img src="images\QR.png" width="100" height="100">
+      </ul>
+
+  </main>
+
+  <!-- ===== モーダル ===== -->
+  <div class="modal" id="modal1">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal1')">&times;</span>
+      <h3>TypingGame</h3>
+      <video src="videos/play.mp4" controls></video>
+      <div class="description-box">
+        <b>概要</b><br>
+        使用言語 : cpp <br>
+        使用ライブラリ : DXライブラリ <br>
+        制作人数 : １人 <br>
+        <br>
+        <b>説明</b><br>
+        この作品はcppとdxライブラリを使ってエンジンを自作し、<br>
+        そのエンジンを使用し作成したゲームです。<br>
+        <br>
+        <b>工夫</b><br>
+        このゲームで使っているエンジンは、アップデート、FPSで分けているので、<br>
+        描画と、処理を分けることで軽く動くようにしています。<br>
+        <br>
+        <b>ゲーム説明</b><br>
+        真ん中に表示された単語の赤くなっている文字を入力すると<br>
+        スコアが１増えるので、<br>
+        時間切れになるまでにどれだけタイピングできたかを競うゲームです。<br>
+        終了後、3位までのスコアを超えたときは、<br>
+        自分のスコアが赤く表示されランキングに入ります。<br>
+      </div>
+    </div>
   </div>
 
-  <!-- ▼ 作品②画像 -->
-  <div class="work-card" onclick="openModal('modal2')">
-    <img src="images\ddd_card.png" alt="DDD">
-    <p>DDD</p>
+  <div class="modal" id="modal2">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span>
+      <h3>DDD</h3>
+      <video src="videos/DDD.mp4" controls></video>
+      <div class="description-box">
+        <b>概要</b><br>
+        使用言語 : unity <br>
+        制作人数 : 6人 <br>
+        制作担当 : プレイヤー<br>
+        <br>
+        <b>説明</b><br>
+        この作品はunityで作成したゲームです。<br>
+        学校のゲームジャムという即席チームで3日でゲームを作る<br>
+        イベントで、3日間で作成しました。<br>
+        <br>
+        <b>工夫</b><br>
+        敵をよける状態になったとき、<br>
+        敵と重なっているならよける状態がずっと続くようにしたこと、<br>
+        敵から離れた瞬間によける状態をすぐ解除するようにしました。<br>
+        <br>
+        <b>ゲーム説明</b><br>
+        敵をジャンプか、よける能力で避け続けてハイスコアを目指すゲームです。<br>
+        敵の近くでよけると、得点が上がるようになっています。<br>
+        薄い色の壁はよける能力じゃないと通り抜けられません。<br>
+      </div>
+    </div>
   </div>
 
-  <!-- ▼ 作品③画像 -->
-  <div class="work-card" onclick="openModal('modal3')">
-    <img src="images/suisoka_card.png" alt="すいそかゲーム">
-    <p>すいそかゲーム</p>
+  <div class="modal" id="modal3">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal3')">&times;</span>
+      <h3>すいそかゲーム</h3>
+      <video src="videos/suisoka.mp4" controls></video>
+      <div class="description-box">
+        <b>概要</b><br>
+        使用言語 : unity <br>
+        制作人数 : 5人 <br>
+        制作担当 : タイトル画面<br>
+        <br>
+        <b>説明</b><br>
+        この作品はunityで作成したゲームです。<br>
+        学校のゲームジャムという即席チームで3日でゲームを作る<br>
+        イベントのサークル版のイベントで、3日間で作成しました。<br>
+        <br>
+        <b>自身の工夫</b><br>
+        タイトルから移動するときにアニメーションを入れて、<br>
+        できるだけ楽しめるように頑張りました<br>
+        <br>
+        <b>ゲーム説明</b><br>
+        原子をなぞることでつなげることができ、<br>
+        そのつなげたものの中でできる物質が作られ、<br>
+        ポイントが加算されるゲームです<br>
+      </div>
+    </div>
   </div>
 
-  <!-- ▼ 作品④画像 -->
-  <div class="work-card" onclick="openModal('modal4')">
-    <img src="images/snakeblock_card.png" alt="SnakeBlock">
-    <p>SnakeBlock</p>
-  </div>
-
-</div>
-
-<h2 class="section-title" id="contact">連絡先</h2>
-<ul class="list">
-  <li>Email：etouyuma@gmail.com</li>
-  <li>URL：https://etoyumaportfolio.netlify.app/</li>
-  <img src="images\QR.png" width="100" height="100">
-</ul>
-
-</main>
-
-<!-- ===== モーダル ===== -->
-<div class="modal" id="modal1">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal1')">&times;</span>
-    <h3>TypingGame</h3>
-    <video src="videos/play.mp4" controls></video>
-    <div class="description-box">
+  <div class="modal" id="modal4">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal4')">&times;</span>
+      <h3>SnakeBlock</h3>
+      <video src="videos/SnakeBlock.mp4" controls></video>
+      <div class="description-box">説明：テスト（SnakeBlock）</div>
       <b>概要</b><br>
-      使用言語 : cpp <br>
-      使用ライブラリ : DXライブラリ <br>
-      制作人数 : １人 <br>
-      <br>
-      <b>説明</b><br>
-      この作品はcppとdxライブラリを使ってエンジンを自作し、<br>
-      そのエンジンを使用し作成したゲームです。<br>
-      <br>
-      <b>工夫</b><br>
-      このゲームで使っているエンジンは、アップデート、FPSで分けているので、<br>
-      描画と、処理を分けることで軽く動くようにしています。<br>
-      <br>
-      <b>ゲーム説明</b><br>
-      真ん中に表示された単語の赤くなっている文字を入力すると<br>
-      スコアが１増えるので、<br>
-      時間切れになるまでにどれだけタイピングできたかを競うゲームです。<br>
-      終了後、3位までのスコアを超えたときは、<br>
-      自分のスコアが赤く表示されランキングに入ります。<br>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="modal2">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal2')">&times;</span>
-    <h3>DDD</h3>
-    <video src="videos/DDD.mp4" controls></video>
-    <div class="description-box">
-     <b>概要</b><br>
-      使用言語 : unity <br>
-      制作人数 : 6人 <br>
-      制作担当 : プレイヤー<br>
-      <br>
-      <b>説明</b><br>
-      この作品はunityで作成したゲームです。<br>
-      学校のゲームジャムという即席チームで3日でゲームを作る<br>
-      イベントで、3日間で作成しました。<br>
-      <br>
-      <b>工夫</b><br>
-      敵をよける状態になったとき、<br>
-      敵と重なっているならよける状態がずっと続くようにしたこと、<br>
-      敵から離れた瞬間によける状態をすぐ解除するようにしました。<br>
-      <br>
-      <b>ゲーム説明</b><br>
-      敵をジャンプか、よける能力で避け続けてハイスコアを目指すゲームです。<br>
-      敵の近くでよけると、得点が上がるようになっています。<br>
-      薄い色の壁はよける能力じゃないと通り抜けられません。<br>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="modal3">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal3')">&times;</span>
-    <h3>すいそかゲーム</h3>
-    <video src="videos/suisoka.mp4" controls></video>
-    <div class="description-box">
-      <b>概要</b><br>
-      使用言語 : unity <br>
-      制作人数 : 5人 <br>
-      制作担当 : タイトル画面<br>
-      <br>
-      <b>説明</b><br>
-      この作品はunityで作成したゲームです。<br>
-      学校のゲームジャムという即席チームで3日でゲームを作る<br>
-      イベントのサークル版のイベントで、3日間で作成しました。<br>
-      <br>
-      <b>自身の工夫</b><br>
-      タイトルから移動するときにアニメーションを入れて、<br>
-      できるだけ楽しめるように頑張りました<br>
-      <br>
-      <b>ゲーム説明</b><br>
-      原子をなぞることでつなげることができ、<br>
-      そのつなげたものの中でできる物質が作られ、<br>
-      ポイントが加算されるゲームです<br>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="modal4">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('modal4')">&times;</span>
-    <h3>SnakeBlock</h3>
-    <video src="videos/SnakeBlock.mp4" controls></video>
-    <div class="description-box">説明：テスト（SnakeBlock）</div>
-    <b>概要</b><br>
       使用言語 : unity <br>
       制作人数 : 4人 <br>
       制作担当 : タイトル画面<br>
@@ -220,9 +234,10 @@
       自分や敵に当たらずに自陣に帰ることができると、<br>
       尻尾で囲んだ部分が陣地になります。<br>
       これで敵を倒すというのがこのゲームです。<br>
+    </div>
   </div>
-</div>
 
-<script src="js/scriptVer2.js"></script>
+  <script src="js/scriptVer2.js"></script>
 </body>
+
 </html>
