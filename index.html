@@ -1,243 +1,884 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ポートフォリオ｜江藤 優真</title>
-  <link rel="stylesheet" href="css/styleVer2.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- ★ブラウザのタブのタイトルは content.js の page_title で変えます -->
+<title>ポートフォリオ</title>
+
+<!-- 文字のデザイン（Googleフォント）。そのままで大丈夫です -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<!-- =====================================================================
+     ★文章・画像・作品などの内容は、すべて「content.js」に書いてあります。
+       内容を変えたいときは content.js を開いてください。
+       この index.html は、見た目と仕組みのファイルです（普段は触らなくてOK）。
+     ===================================================================== -->
+
+<style>
+/* =====================================================================
+   【1】色・大きさ・文字の設定（ここを変えるとサイト全体の見た目が変わります）
+   ===================================================================== */
+:root{
+  --yellow:#F2D338;       /* メインの黄色（ナビ、タグ、ボタン） */
+  --yellow-soft:#FBF0B0;  /* 薄い黄色（動画が無いときの枠など） */
+  --ink:#1E0B08;          /* 文字と縁取りの色（黒に近い茶色） */
+  --paper:#FFFEF6;        /* 背景の白 */
+  --muted:#6b5a52;        /* 補足文字のうすい色 */
+  --red:#E0332B;          /* 閉じるボタンの赤 */
+
+  --nav-h:64px;           /* 上のナビの高さ */
+  --line:4px solid var(--ink);          /* 太い縁取り（枠の線の太さを変えるならここ） */
+  --shadow:6px 6px 0 var(--ink);        /* 枠の右下の影 */
+
+  /* 文字の種類。名前と見出しは、本文と同じ丸ゴシックにしています */
+  --font-display:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --font-body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --weight-display:700;   /* ★名前・見出しの太さ（400〜900）。大きいほど太い。読みにくいときは数字を下げる */
+}
+
+/* =====================================================================
+   【2】ここから下は見た目の細かい指定です（慣れるまでは触らなくてOK）
+   ===================================================================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)} /* ナビに隠れないようにずらす */
+body{
+  font-family:var(--font-body);font-weight:500;line-height:1.9;
+  color:var(--ink);background:var(--paper);
+  text-align:center;               /* ★文字を中央寄せにしている部分 */
+  padding-top:var(--nav-h);overflow-x:hidden;
+}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:4px solid #2a6df4;outline-offset:3px} /* キーボード操作の目印 */
+
+/* ----- 背景の稲妻 ----- */
+/* ページ全体と同じ高さの層に稲妻を置く（高さはJavaScriptが自動で合わせます） */
+#bolts{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+#bolts img{position:absolute;opacity:.16;will-change:transform;user-select:none} /* opacity＝濃さ（0〜1） */
+
+/* ----- 上のナビ ----- */
+nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;
+  background:var(--yellow);border-bottom:var(--line);
+  display:flex;align-items:center;justify-content:center;
+}
+nav ul{list-style:none;display:flex;gap:6px;padding:0 12px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+nav ul::-webkit-scrollbar{display:none}
+nav ul{-webkit-user-select:none;user-select:none}
+nav ul.scrollable{cursor:grab}              /* 項目がはみ出している（動かせる）ときだけ「つかむ手」 */
+nav ul.dragging,nav ul.dragging a{cursor:grabbing}
+nav ul.dragging a{pointer-events:none}      /* ドラッグ中に項目を押してしまわないように */
+nav a{
+  -webkit-user-drag:none;
+  display:block;white-space:nowrap;text-decoration:none;font-weight:900;
+  font-size:.95rem;padding:7px 14px;border:3px solid transparent;border-radius:999px;
+  line-height:1.4;transition:background .15s,border-color .15s;
+}
+nav a:hover{background:var(--paper)}
+nav a.active{background:var(--ink);color:var(--yellow)}   /* 今いる場所の表示 */
+
+/* ----- セクション共通 ----- */
+main{position:relative;z-index:1}
+main>section{padding:96px 20px 40px}          /* 上 / 左右 / 下 の余白 */
+.wrap{max-width:760px;margin:0 auto}          /* 中身の横幅（中央に寄せる） */
+.wrap.wide{max-width:1040px}
+h2{
+  font-family:var(--font-display);font-weight:var(--weight-display);font-size:clamp(1.8rem,5vw,2.6rem);
+  letter-spacing:.04em;
+  line-height:1.3;display:inline-block;position:relative;margin-bottom:36px;
+}
+h2::after{ /* 見出しの下の黄色いマーカー */
+  content:"";position:absolute;left:-6px;right:-6px;bottom:2px;height:.38em;
+  background:var(--yellow);z-index:-1;border-radius:4px;
+}
+p+p{margin-top:1em}
+.box{ /* 文章を入れる黒縁の白い枠 */
+  background:var(--paper);border:var(--line);border-radius:20px;
+  box-shadow:var(--shadow);padding:28px 26px;
+}
+.btn{ /* 黄色い丸いボタン */
+  display:inline-block;text-decoration:none;font-weight:900;padding:8px 22px;
+  background:var(--yellow);border:3px solid var(--ink);border-radius:999px;
+  box-shadow:3px 3px 0 var(--ink);transition:transform .1s,box-shadow .1s;
+}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+
+/* ----- トップ ----- */
+#top{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;justify-content:center;padding-top:40px}
+.hero-bolt{width:clamp(110px,22vw,170px);margin:0 auto 18px;filter:drop-shadow(5px 5px 0 rgba(30,11,8,.18));animation:flash 4s ease-in-out infinite}
+@keyframes flash{0%,86%,100%{transform:rotate(0) scale(1)}90%{transform:rotate(-6deg) scale(1.08)}94%{transform:rotate(4deg) scale(1.03)}}
+.hero-name{
+  font-family:var(--font-display);font-weight:var(--weight-display);
+  font-size:clamp(2.2rem,8vw,4rem);letter-spacing:.08em;line-height:1.3;   /* 字間をあけて、画数の多い字も読みやすく */
+}
+.hero-sub{margin-top:14px;font-weight:700;font-size:1.1rem}
+.hero-sub span{background:var(--yellow);padding:2px 12px;border:3px solid var(--ink);border-radius:999px}
+
+/* ----- 自己紹介の画像（角丸の四角） ----- */
+.about-photos{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-bottom:26px}
+.about-photos figure{width:min(210px,80%)}   /* ★画像1枚の大きさ。大きくしたいときは 210px を増やす */
+.about-photos .frame{
+  aspect-ratio:1/1;border:var(--line);border-radius:22px;  /* border-radius＝角の丸さ */
+  box-shadow:var(--shadow);overflow:hidden;background:var(--yellow-soft);
+}
+.about-photos img{width:100%;height:100%;object-fit:cover}
+.about-photos figcaption{margin-top:10px;font-weight:700;font-size:.9rem;line-height:1.5}
+
+/* ----- 特技・趣味のカード ----- */
+.hobby-group+.hobby-group{margin-top:44px}
+.hobby-group h3{font-size:1.3rem;font-weight:900;margin-bottom:18px}
+.hobby-cards{display:flex;flex-wrap:wrap;gap:22px;justify-content:center} /* 数が少なくても中央に並ぶ */
+.hobby-card{
+  width:min(440px,100%);background:var(--paper);border:var(--line);border-radius:18px;
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.hobby-card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-bottom:var(--line)}
+.hobby-card .body{padding:12px 14px 16px}
+.hobby-card h4{font-size:1.05rem;font-weight:900;line-height:1.5}
+.hobby-card p{font-size:.9rem;line-height:1.7;margin-top:4px}
+
+/* ----- 資格の一覧 ----- */
+.list{list-style:none}
+.list li{padding:6px 0;border-bottom:2px dashed rgba(30,11,8,.25)}
+.list li:last-child{border-bottom:0}
+
+/* ----- 使用スキルのタグ ----- */
+.skill-group+.skill-group{margin-top:26px}
+.skill-group h3{font-size:1.05rem;font-weight:900;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.tag{background:var(--yellow);border:3px solid var(--ink);border-radius:999px;padding:3px 16px;font-weight:700;font-size:.95rem;line-height:1.7}
+.tag small{font-weight:500;margin-left:6px;opacity:.75}
+
+/* ----- 作品カードの横スライド ----- */
+.works-hint{color:var(--muted);font-size:.9rem;margin:-14px 0 22px}
+.carousel{position:relative}
+.track{
+  display:flex;gap:22px;overflow-x:auto;padding:12px 8px 24px;
+  scrollbar-width:none;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-overflow-scrolling:touch;
+}
+.track::-webkit-scrollbar{display:none}
+.track.dragging{cursor:grabbing}
+.track.dragging .card{pointer-events:none}
+.card{
+  flex:0 0 auto;width:min(260px,70vw);font:inherit;color:inherit;text-align:center;
+  background:var(--paper);border:var(--line);border-radius:18px;box-shadow:var(--shadow);
+  padding:0;overflow:hidden;cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s;
+}
+.card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+.card:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+.card img{width:100%;aspect-ratio:16/10;object-fit:cover;border-bottom:var(--line);pointer-events:none;-webkit-user-drag:none}
+.card span{display:block;padding:12px 10px;font-weight:900;font-size:1rem;line-height:1.5}
+.card.selected{background:var(--yellow)}   /* 選んでいるカードの色 */
+.arrow{
+  position:absolute;top:42%;width:48px;height:48px;border-radius:50%;
+  border:var(--line);background:var(--yellow);font-size:1.3rem;font-weight:900;
+  cursor:pointer;color:var(--ink);box-shadow:3px 3px 0 var(--ink);z-index:2;
+}
+.arrow:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.arrow.prev{left:-14px}.arrow.next{right:-14px}
+@media (max-width:640px){.arrow{display:none}}   /* スマホでは矢印を出さず、指でスワイプ */
+
+/* ----- 作品の詳細（動画と説明） ----- */
+.detail{
+  position:relative;               /* 閉じるボタンの位置の基準 */
+  margin-top:26px;border:var(--line);border-radius:22px;box-shadow:var(--shadow);
+  background:var(--paper);padding:26px 22px 26px;display:none;
+}
+.detail.open{display:block;animation:pop .22s ease-out}
+@keyframes pop{from{transform:scale(.97);opacity:.4}to{transform:none;opacity:1}}
+.detail video,.work-full video{width:100%;max-height:70vh;background:var(--ink);border:3px solid var(--ink);border-radius:12px}
+.video-missing{padding:44px 16px;border:3px dashed var(--ink);border-radius:12px;background:var(--yellow-soft);font-weight:700}
+.detail h3{font-family:var(--font-display);font-weight:var(--weight-display);font-size:1.7rem;letter-spacing:.04em;margin:18px 0 12px;line-height:1.4}
+.detail .links,.work-full .links{margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* 作品の説明文（見出し付きの書き方のとき） */
+.d-body{max-width:680px;margin:0 auto;text-align:left}   /* 読みやすいよう、説明文は左揃え */
+.d-body.center{text-align:center}                         /* 短い説明（text）だけのときは中央 */
+.d-sec+.d-sec{margin-top:26px}
+.d-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+.d-text+.d-tags{margin-top:12px}
+.d-tags+.d-text{margin-top:12px}
+.d-sec.nohead+.d-sec.nohead,.d-sec+.d-sec.nohead{margin-top:10px}   /* 見出しなしの項目は、前の項目に近づける */
+.d-sec h4{                       /* ★説明の見出し（大きく太く）。大きさは font-size で調整 */
+  font-size:1.3rem;font-weight:900;line-height:1.5;margin-bottom:8px;
+  padding-left:12px;border-left:7px solid var(--yellow);
+}
+.d-text p+p{margin-top:.9em}
+.d-text strong{font-weight:900;background:linear-gradient(transparent 62%,var(--yellow) 62%)}  /* ** ** で囲んだ太字 */
+.d-info{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline}
+.d-info dt{
+  background:var(--yellow);border:3px solid var(--ink);border-radius:999px;
+  padding:0 14px;font-weight:900;font-size:.9rem;line-height:1.7;white-space:nowrap;
+}
+.d-info dd{margin:0}
+/* 表の中の表（3つ目に書いた入れ子）：左に線を引いて、少し字下げ */
+.d-info.sub{
+  margin-top:10px;padding-left:14px;border-left:4px solid var(--ink);
+  gap:5px 12px;font-size:.95rem;
+}
+.d-info.sub dt{background:var(--paper);font-size:.85rem;padding:0 12px}
+.d-info .d-sub-wrap{min-width:0}
+
+.close{ /* 右上の赤い丸の×ボタン */
+  position:absolute;top:-18px;right:-10px;width:44px;height:44px;border-radius:50%;
+  background:var(--red);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  cursor:pointer;padding:0;display:grid;place-items:center;
+}
+.close svg{width:20px;height:20px;stroke:#fff;stroke-width:4;stroke-linecap:round}
+.close:hover{filter:brightness(1.1)}
+.close:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+
+/* ----- 自作ゲームエンジン ----- */
+#engine .engine-box{background:var(--yellow);border:var(--line);border-radius:28px;box-shadow:10px 10px 0 var(--ink);padding:40px 28px}
+#engine h2::after{background:var(--paper)}
+.engine-video{margin:0 auto 24px;max-width:760px;border:var(--line);border-radius:16px;overflow:hidden;background:var(--ink);box-shadow:var(--shadow)}
+.engine-video video{width:100%;aspect-ratio:16/9}
+#engine .d-body{margin:0 auto 24px}
+#engine .d-sec h4{border-left-color:var(--ink)}   /* 黄色い背景で見えるよう、見出しの線を黒に */
+#engine .d-info dt{background:var(--paper)}
+.engine-box .btn{background:var(--paper)}
+
+
+/* ----- 自作エンジンで作った作品（開きっぱなしの大きな枠） ----- */
+.work-full{
+  max-width:900px;margin:0 auto 44px;     /* ★枠の横幅の上限は 900px。画面が狭いときは、画面の幅に合わせて自動で縮む */
+  border:var(--line);border-radius:24px;box-shadow:10px 10px 0 var(--ink);
+  background:var(--paper);padding:28px 24px 30px;
+}
+.work-full:last-child{margin-bottom:0}
+.work-full h3{
+  font-family:var(--font-display);font-weight:var(--weight-display);
+  font-size:clamp(1.5rem,4.5vw,2.1rem);letter-spacing:.04em;line-height:1.4;margin:0 0 18px;
+}
+.work-full .d-body{margin-top:24px}
+
+/* ----- 使用スキルの、押せるボタン ----- */
+button.tag{font:inherit;font-weight:700;font-size:.95rem;line-height:1.7;color:inherit}
+.tag-btn{
+  cursor:pointer;box-shadow:3px 3px 0 var(--ink);
+  transition:transform .1s,box-shadow .1s,background .1s;
+}
+.tag-btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.tag-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.tag-btn[aria-expanded="true"]{background:var(--ink);color:var(--yellow)}   /* 開いているボタンの色 */
+.skill-desc{
+  margin:16px auto 0;max-width:560px;padding:14px 18px;
+  border:3px solid var(--ink);border-radius:14px;background:var(--yellow-soft);
+}
+.skill-desc[hidden]{display:none}
+.skill-desc.wide{max-width:720px}                           /* sections で書いたときは、少し広く */
+.skill-desc .d-body{margin-top:10px}
+.skill-desc .d-sec h4{border-left-color:var(--ink);font-size:1.1rem}   /* 薄い黄色の背景で見えるよう、線を黒に */
+.skill-desc .d-info dt{background:var(--paper)}
+.skill-desc strong{display:block;font-weight:900}
+.skill-desc .btn{margin-top:10px;font-size:.9rem;padding:4px 16px}
+
+/* ----- 連絡先：メールアドレスのコピー ----- */
+.copy-item{
+  display:inline-flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:6px 12px;
+  background:var(--yellow);border:3px solid var(--ink);border-radius:20px;
+  padding:6px 8px 6px 18px;box-shadow:3px 3px 0 var(--ink);
+}
+.copy-label{font-weight:900}
+.copy-addr{font-weight:700;user-select:all;-webkit-user-select:all;word-break:break-all}  /* 押すとアドレス全体が選択される */
+.copy-btn{
+  font:inherit;font-weight:900;cursor:pointer;color:var(--ink);
+  background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:2px 16px;
+  min-width:7.5em;transition:transform .1s;
+}
+.copy-btn:hover{transform:translate(-1px,-1px)}
+.copy-btn:active{transform:translate(2px,2px)}
+.copy-btn.done{background:var(--ink);color:var(--yellow)}
+
+/* ----- 連絡先・フッター ----- */
+.contact-list{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.contact-list .btn{font-size:1.05rem}
+footer{position:relative;z-index:1;padding:50px 20px 60px;font-size:.85rem;color:var(--muted)}
+
+@media (max-width:640px){
+  main>section{padding-top:72px}
+  nav,nav ul{justify-content:flex-start}
+  .d-info{grid-template-columns:1fr;gap:2px}      /* スマホでは、項目名の下に内容を出す */
+  .d-info dd{margin-bottom:8px}
+  .d-info.sub{padding-left:10px}
+}
+@media (prefers-reduced-motion:reduce){ /* 動きが苦手な人向けの設定 */
+  html{scroll-behavior:auto}
+  .hero-bolt,.detail.open{animation:none}
+}
+</style>
+</head>
 <body>
 
-  <!-- 雷アニメーション（完全背景） -->
-  <div id="thunder-container"></div>
+<!-- 背景の稲妻はここに自動で入ります（触らなくてOK） -->
+<div id="bolts" aria-hidden="true"></div>
 
-  <!-- ===== 上部固定ナビ ===== -->
-  <nav class="fixed-menu">
-    <ul class="menu">
-      <li><a href="#profile">自己紹介</a></li>
-      <li><a href="#hobby">特技・趣味</a></li>
-      <li><a href="#license">資格</a></li>
-      <li><a href="#skill">スキル</a></li>
-      <li><a href="#pr">自己PR</a></li>
-      <li><a href="#works">作品</a></li>
-      <li><a href="#contact">連絡先</a></li>
-      <li><a href="#GameEngine">自作エンジン</a></li>
-    </ul>
-  </nav>
+<!-- 上のナビ。項目は content.js の nav_text から自動で作られます -->
+<nav aria-label="ページ内移動"><ul id="navList"></ul></nav>
 
-  <main class="container">
+<!-- =====================================================================
+     ページの中身の「枠」です。文章などは、content.js から自動で入ります。
+     ・各 <section> の id（about, hobby …）は、content.js の nav_text の
+       「内部の名前」と対応しています。変えないでください
+     ・ページの並び順は、content.js の nav_text の順番で決まります
+     ===================================================================== -->
+<main id="main">
 
-    <h1 class="page-title">ポートフォリオ</h1>
-
-    <h2 class="section-title" id="profile">自己紹介</h2>
-    <div class="profile-images">
-      <img src="images/2140302_IMG_4924251105.jpg" class="profile-img">
-      <img src="images/IMG_4467.png" class="profile-img2">
+  <!-- トップ：名前（name_text）と肩書き（title_text） -->
+  <section id="top">
+    <div class="wrap">
+      <img class="hero-bolt" src="images/kaminari.png" alt="">
+      <h1 class="hero-name" id="nameText"></h1>
+      <p class="hero-sub" id="titleBox"><span id="titleText"></span></p>
     </div>
+  </section>
 
-    <ul class="list">
-      <li>名前：江藤 優真</li>
-      <li>学校：横浜デジタルアーツ専門学校</li>
-      <li>学年：2年 ゲーム科</li>
-    </ul>
-
-    <h2 class="section-title" id="hobby">特技・趣味</h2>
-    <ul class="list">
-      <li>特技：人力車での観光案内</li>
-      <li>趣味：ゲーム・グッズ収集</li>
-    </ul>
-
-    <h2 class="section-title" id="license">資格</h2>
-    <ul class="list">
-      <li>CGクリエイター検定 ベーシック</li>
-      <li>情報検定（J検）3級</li>
-    </ul>
-
-    <h2 class="section-title" id="skill">使用スキル</h2>
-    <ul class="list">
-      <li>C++ / C / C# / Python</li>
-      <li>Unity / Unreal Engine</li>
-    </ul>
-
-    <h2 class="section-title" id="pr">自己PR</h2>
-    <p>
-      プログラムの内部構造や挙動にこだわることが得意です。
-    </p>
-
-    <h2 class="section-title" id="works">作品紹介</h2>
-
-    <!-- ===== 作品カード ===== -->
-    <div class="works-grid">
-
-      <!-- ▼ ここに作品①の画像を設定 -->
-      <div class="work-card" data-modal="modal1">
-        <img src="images/typinggame_card.png" alt="TypingGame">
-        <p>TypingGame</p>
-      </div>
-
-      <!-- ▼ 作品②画像 -->
-      <div class="work-card" data-modal="modal2">
-        <img src="images\ddd_card.png" alt="DDD">
-        <p>DDD</p>
-      </div>
-
-      <!-- ▼ 作品③画像 -->
-      <div class="work-card" data-modal="modal3">
-        <img src="images/suisoka_card.png" alt="すいそかゲーム">
-        <p>すいそかゲーム</p>
-      </div>
-
-      <!-- ▼ 作品④画像 -->
-      <div class="work-card" data-modal="modal4">
-        <img src="images/snakeblock_card.png" alt="SnakeBlock">
-        <p>SnakeBlock</p>
-      </div>
-
-    </div>
-
-    <h2 class="section-title" id="GameEngine">自作ゲームエンジン</h2>
-      <ul class="list">
-        <p>
-          C++で制作した自作ゲームエンジンです。
-          2Dゲーム制作を目的として、描画・入力・オブジェクト管理などの基礎機能を実装しています。
-        </p>
-        <a href="https://github.com/marumari025/MyGameEngine" target="_blank">
-          GitHub（MyGameEngine）
-        </a>
-      </ul>
-
-      <h2 class="section-title" id="contact">連絡先</h2>
-      <ul class="list">
-
-        <li>Email：etouyuma@gmail.com</li>
-        <li>URL：https://etoyumaportfolio.netlify.app/</li>
-        <img src="images\QR.png" width="100" height="100">
-      </ul>
-
-  </main>
-
-  <!-- ===== モーダル ===== -->
-  <div class="modal" id="modal1">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('modal1')">&times;</span>
-      <h3>TypingGame</h3>
-      <video src="videos/play.mp4" controls></video>
-      <div class="description-box">
-        <b>概要</b><br>
-        使用言語 : cpp <br>
-        使用ライブラリ : DXライブラリ <br>
-        制作人数 : １人 <br>
-        <br>
-        <b>説明</b><br>
-        この作品はcppとdxライブラリを使ってエンジンを自作し、<br>
-        そのエンジンを使用し作成したゲームです。<br>
-        <br>
-        <b>工夫</b><br>
-        このゲームで使っているエンジンは、アップデート、FPSで分けているので、<br>
-        描画と、処理を分けることで軽く動くようにしています。<br>
-        <br>
-        <b>ゲーム説明</b><br>
-        真ん中に表示された単語の赤くなっている文字を入力すると<br>
-        スコアが１増えるので、<br>
-        時間切れになるまでにどれだけタイピングできたかを競うゲームです。<br>
-        終了後、3位までのスコアを超えたときは、<br>
-        自分のスコアが赤く表示されランキングに入ります。<br>
+  <!-- 自己紹介：画像（ABOUT_PHOTOS）と文章（about_text） -->
+  <section id="about">
+    <div class="wrap">
+      <h2></h2>
+      <div class="box">
+        <div class="about-photos" id="aboutPhotos"></div>
+        <div id="aboutText"></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="modal" id="modal2">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('modal2')">&times;</span>
-      <h3>DDD</h3>
-      <video src="videos/DDD.mp4" controls></video>
-      <div class="description-box">
-        <b>概要</b><br>
-        使用言語 : unity <br>
-        制作人数 : 6人 <br>
-        制作担当 : プレイヤー<br>
-        <br>
-        <b>説明</b><br>
-        この作品はunityで作成したゲームです。<br>
-        学校のゲームジャムという即席チームで3日でゲームを作る<br>
-        イベントで、3日間で作成しました。<br>
-        <br>
-        <b>工夫</b><br>
-        敵をよける状態になったとき、<br>
-        敵と重なっているならよける状態がずっと続くようにしたこと、<br>
-        敵から離れた瞬間によける状態をすぐ解除するようにしました。<br>
-        <br>
-        <b>ゲーム説明</b><br>
-        敵をジャンプか、よける能力で避け続けてハイスコアを目指すゲームです。<br>
-        敵の近くでよけると、得点が上がるようになっています。<br>
-        薄い色の壁はよける能力じゃないと通り抜けられません。<br>
+  <!-- 特技・趣味（HOBBIES） -->
+  <section id="hobby">
+    <div class="wrap wide">
+      <h2></h2>
+      <div id="hobbyBox"></div>
+    </div>
+  </section>
+
+  <!-- 資格（license_text） -->
+  <section id="license">
+    <div class="wrap">
+      <h2></h2>
+      <div class="box"><ul class="list" id="licenseList"></ul></div>
+    </div>
+  </section>
+
+  <!-- 使用スキル（SKILLS） -->
+  <section id="skills">
+    <div class="wrap">
+      <h2></h2>
+      <div class="box" id="skillBox"></div>
+    </div>
+  </section>
+
+  <!-- 自己PR（pr_text） -->
+  <section id="pr">
+    <div class="wrap">
+      <h2></h2>
+      <div class="box" id="prText"></div>
+    </div>
+  </section>
+
+  <!-- その他の作品（WORKS）。横にスライドするカード -->
+  <section id="works">
+    <div class="wrap wide">
+      <h2></h2>
+      <p class="works-hint">カードをつかんで左右に動かせます。押すと動画と説明が出ます。</p>
+      <div class="carousel">
+        <button class="arrow prev" type="button" aria-label="前へ">◀</button>
+        <div class="track" id="track"></div>
+        <button class="arrow next" type="button" aria-label="次へ">▶</button>
+      </div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 自作エンジン（ENGINE） -->
+  <section id="engine">
+    <div class="wrap wide">
+      <div class="engine-box">
+        <h2></h2>
+        <div id="engineVideo"></div>
+        <div id="engineBody"></div>
+        <div class="contact-list" id="engineLinks"></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="modal" id="modal3">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('modal3')">&times;</span>
-      <h3>すいそかゲーム</h3>
-      <video src="videos/suisoka.mp4" controls></video>
-      <div class="description-box">
-        <b>概要</b><br>
-        使用言語 : unity <br>
-        制作人数 : 5人 <br>
-        制作担当 : タイトル画面<br>
-        <br>
-        <b>説明</b><br>
-        この作品はunityで作成したゲームです。<br>
-        学校のゲームジャムという即席チームで3日でゲームを作る<br>
-        イベントのサークル版のイベントで、3日間で作成しました。<br>
-        <br>
-        <b>自身の工夫</b><br>
-        タイトルから移動するときにアニメーションを入れて、<br>
-        できるだけ楽しめるように頑張りました<br>
-        <br>
-        <b>ゲーム説明</b><br>
-        原子をなぞることでつなげることができ、<br>
-        そのつなげたものの中でできる物質が作られ、<br>
-        ポイントが加算されるゲームです<br>
+  <!-- 自作エンジンで作った作品（ENGINE_WORKS）。開きっぱなしで全部表示 -->
+  <section id="engineWorks">
+    <div class="wrap wide">
+      <h2></h2>
+      <div id="engineWorksList"></div>
+    </div>
+  </section>
+
+  <!-- 連絡先（contact_lead と contacts） -->
+  <section id="contact">
+    <div class="wrap">
+      <h2></h2>
+      <div class="box">
+        <p id="contactLead"></p>
+        <div class="contact-list" id="contactList"></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="modal" id="modal4">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('modal4')">&times;</span>
-      <h3>SnakeBlock</h3>
-      <video src="videos/SnakeBlock.mp4" controls></video>
-      <div class="description-box">説明：テスト（SnakeBlock）</div>
-      <b>概要</b><br>
-      使用言語 : unity <br>
-      制作人数 : 4人 <br>
-      制作担当 : タイトル画面<br>
-      <br>
-      <b>説明</b><br>
-      この作品はunityで作成したゲームです。<br>
-      学校のゲームジャムという即席チームで3日でゲームを作る<br>
-      イベントのクラス版のイベントで、3日間で作成しました。<br>
-      <br>
-      <b>自身の工夫</b><br>
-      自作でドットのフォントのようなものを簡単に作れるものを制作し、<br>
-      スタートボタンやタイトルなどで使いました<br>
-      タイトルでブロックがずっと動くようにして目を引きやすいようにして、<br>
-      タイトルから移動するときにアニメーションを入れて、<br>
-      できるだけ楽しめるように頑張りました<br>
-      <br>
-      <b>ゲーム説明</b><br>
-      プレイヤーが陣地から出ると自分の後ろにしっぽを残し、<br>
-      それに自分や敵が当たったらゲームオーバーになります。<br>
-      自分や敵に当たらずに自陣に帰ることができると、<br>
-      尻尾で囲んだ部分が陣地になります。<br>
-      これで敵を倒すというのがこのゲームです。<br>
-    </div>
-  </div>
+</main>
 
-  <script src="js/scriptVer2.js"></script>
+<footer>&copy; <span id="year"></span> <span id="footerText"></span></footer>
+
+<!-- ★内容はここから読み込みます -->
+<script src="content.js"></script>
+
+<script>
+/* =====================================================================
+   ★★★ ここから下は、サイトを動かす仕組みです。触らなくて大丈夫です ★★★
+   内容を変えたいときは content.js を書き換えてください
+   ===================================================================== */
+
+const $ = s => document.querySelector(s);
+
+/* =====================================================================
+   content.js から、内容を安全に読み込む
+   変数が無くても（消しても）、エラーで止まらないようにしています
+   ===================================================================== */
+const val = (f, d) => { try { const v = f(); return v == null ? d : v; } catch(e){ return d; } };
+
+const C = {
+  page_title:   val(() => page_title, "ポートフォリオ"),
+  nav_text:     val(() => nav_text, [
+                  ["top","トップ"],["about","自己紹介"],["engine","自作エンジン"],
+                  ["engineWorks","エンジンで作った作品"],["works","その他の作品"],
+                  ["skills","使用スキル"],["license","資格"],["contact","連絡先"]]),
+  name_text:    val(() => name_text, ""),
+  title_text:   val(() => title_text, ""),
+  footer_text:  val(() => footer_text, ""),
+  about_text:   val(() => about_text, []),
+  ABOUT_PHOTOS: val(() => ABOUT_PHOTOS, []),
+  HOBBIES:      val(() => HOBBIES, []),
+  license_text: val(() => license_text, []),
+  SKILLS:       val(() => SKILLS, []),
+  pr_text:      val(() => pr_text, []),
+  ENGINE:       val(() => ENGINE, {}),
+  ENGINE_WORKS: val(() => ENGINE_WORKS, []),
+  WORKS:        val(() => WORKS, []),
+  contact_lead: val(() => contact_lead, ""),
+  contacts:     val(() => contacts, [])
+};
+
+/* 文章に < や " が入っても壊れないようにするための処理 */
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* 文章の書き方：**太字** と、書いた位置の改行に対応
+   ・` ` の中や "\n" で改行した位置が、そのまま画面でも改行になる
+   ・改行していない所は、画面の幅に合わせて自動で折り返される
+   ・各行の前後の空白（字下げ）は、取り除く */
+const fmt = s => {
+  const lines = String(s == null ? "" : s).split("\n").map(l => l.trim());
+  while(lines.length && lines[0] === "") lines.shift();
+  while(lines.length && lines[lines.length - 1] === "") lines.pop();
+  return esc(lines.join("\n")).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+};
+
+/* 空行で段落を分けて <p> にする（作品の説明用） */
+const paras = s => String(s).trim().split(/\n\s*\n/).map(p => `<p>${fmt(p)}</p>`).join("");
+
+/* =====================================================================
+   ページを組み立てる
+   ===================================================================== */
+
+/* ---- タブのタイトル・名前・肩書き・フッター ---- */
+document.title = C.page_title;
+$("#nameText").textContent = C.name_text;
+if(C.title_text){ $("#titleText").textContent = C.title_text; } else { $("#titleBox").remove(); }
+$("#footerText").textContent = C.footer_text;
+$("#year").textContent = new Date().getFullYear();
+
+/* ---- 自己紹介 ---- */
+$("#aboutPhotos").innerHTML = C.ABOUT_PHOTOS.map(p =>
+  `<figure><div class="frame"><img src="${esc(p.image)}" alt="${esc(p.caption || "")}"></div>` +
+  (p.caption ? `<figcaption>${esc(p.caption)}</figcaption>` : "") + `</figure>`
+).join("");
+if(!C.ABOUT_PHOTOS.length) $("#aboutPhotos").remove();
+$("#aboutText").innerHTML = C.about_text.map(t => `<p>${fmt(t)}</p>`).join("");
+
+/* ---- 特技・趣味のカード（nav_text に hobby を書いたときだけ表示） ---- */
+$("#hobbyBox").innerHTML = C.HOBBIES.filter(g => (g.items || []).length).map(g =>
+  `<div class="hobby-group"><h3>${esc(g.group)}</h3><div class="hobby-cards">` +
+  g.items.map(it =>
+    `<div class="hobby-card">` +
+    (it.image ? `<img src="${esc(it.image)}" alt="">` : "") +   // 画像が空なら枠ごと出さない
+    `<div class="body"><h4>${esc(it.title)}</h4>` +
+    (it.text ? `<p>${fmt(it.text)}</p>` : "") + `</div></div>`
+  ).join("") + `</div></div>`
+).join("");
+
+/* ---- 資格 ---- */
+$("#licenseList").innerHTML = C.license_text.map(t => `<li>${fmt(t)}</li>`).join("");
+
+/* ---- 自己PR（nav_text に pr を書いたときだけ表示） ---- */
+$("#prText").innerHTML = C.pr_text.map(t => `<p>${fmt(t)}</p>`).join("");
+
+/* ---- 作品の部品（「エンジンの作品」と「その他の作品」で共通） ---- */
+const videoHtml = w =>
+  `<video controls playsinline preload="metadata"${w.thumb ? ` poster="${esc(w.thumb)}"` : ""} src="${esc(w.video)}"></video>`;
+
+const linksHtml = w => {
+  const l = (w.link || []).map(x => `<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join("");
+  return l ? `<div class="links">${l}</div>` : "";
+};
+
+/* 表（info）。行の3つ目に、中の表を書くと、入れ子で表示される（何段でも可。2段までがおすすめ） */
+const infoHtml = (list, sub) => (list || []).length
+  ? `<dl class="d-info${sub ? " sub" : ""}">` + list.map(([k, v, inner]) =>
+      `<dt>${esc(k)}</dt><dd>${fmt(v)}${infoHtml(inner, true)}</dd>`).join("") + `</dl>` : "";
+
+/* 説明部分（sections / text / info に対応） */
+const bodyHtml = w => {
+  if(w.sections && w.sections.length){
+    return `<div class="d-body">` + w.sections.map(s => {
+      const head = s.heading ? `<h4>${esc(s.heading)}</h4>` : "";
+      /* text と info は、書いた順番どおりに並べる（見出しは常に一番上） */
+      const body = Object.keys(s).map(k =>
+        k === "text" ? (s.text ? `<div class="d-text">${paras(s.text)}</div>` : "")
+        : k === "info" ? infoHtml(s.info)
+        : k === "tags" ? ((s.tags || []).length ? `<div class="d-tags">${s.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : "")
+        : "").join("");
+      return `<div class="d-sec${head ? "" : " nohead"}">${head}${body}</div>`;
+    }).join("") + `</div>`;
+  }
+  return w.text ? `<div class="d-body center"><div class="d-text">${paras(w.text)}</div></div>` : "";
+};
+
+/* ---- 使用スキル：名前だけ → 押せないタグ／説明（文字か sections）付き → 押せるボタン ---- */
+(function(){
+  const groups = C.SKILLS.filter(g => (g.items || []).length);
+  $("#skillBox").innerHTML = groups.map((g, gi) =>
+    `<div class="skill-group" data-g="${gi}"><h3>${esc(g.group)}</h3><div class="tags">` +
+    g.items.map((it, ii) => {
+      const [name, text, url] = Array.isArray(it) ? it : [it, "", ""];
+      return (text || url)
+        ? `<button type="button" class="tag tag-btn" data-i="${ii}" aria-expanded="false">${esc(name)}</button>`
+        : `<span class="tag">${esc(name)}</span>`;
+    }).join("") +
+    `</div><div class="skill-desc" hidden aria-live="polite"></div></div>`
+  ).join("");
+
+  /* 項目を開く／閉じる */
+  function setSkill(group, btn, open){
+    const panel = group.querySelector(".skill-desc");
+    group.querySelectorAll(".tag-btn").forEach(b => b.setAttribute("aria-expanded", "false"));
+    if(!open){ panel.hidden = true; return; }
+    btn.setAttribute("aria-expanded", "true");
+    const [name, desc, url] = groups[+group.dataset.g].items[+btn.dataset.i];
+    /* 説明は、文字でも、sections（見出し・本文・表）でも書ける */
+    const sec = Array.isArray(desc) ? { sections: desc } : (desc && typeof desc === "object" ? desc : null);
+    panel.classList.toggle("wide", !!sec);
+    panel.innerHTML = `<strong>${esc(name)}</strong>` +
+      (sec ? bodyHtml(sec) : (desc ? `<p>${fmt(desc)}</p>` : "")) +
+      (url ? `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener">詳しく見る</a>` : "");
+    panel.hidden = false;
+  }
+
+  $("#skillBox").addEventListener("click", e => {
+    const btn = e.target.closest(".tag-btn"); if(!btn) return;
+    const group = btn.closest(".skill-group");
+    setSkill(group, btn, btn.getAttribute("aria-expanded") !== "true");   // もう一度押すと閉じる
+  });
+
+  /* 最初から開いておく項目（グループの open: "名前" または open: true） */
+  groups.forEach((g, gi) => {
+    if(!g.open) return;
+    const group = document.querySelector(`.skill-group[data-g="${gi}"]`);
+    const btns = [...group.querySelectorAll(".tag-btn")];
+    const btn = g.open === true ? btns[0]
+      : btns.find(b => { const it = g.items[+b.dataset.i]; return Array.isArray(it) && it[0] === g.open; });
+    if(btn) setSkill(group, btn, true);        // 押せない項目や、見つからない名前のときは、何も開かない
+  });
+})();
+
+/* 動画が見つからないとき、置き場所を案内する（全部の動画に共通） */
+document.addEventListener("error", e => {
+  const v = e.target;
+  if(!v || v.tagName !== "VIDEO" || !v.getAttribute("src")) return;
+  v.outerHTML = `<div class="video-missing">動画が見つかりません。<br>${esc(v.getAttribute("src"))} を置いてください。</div>`;
+}, true);
+
+/* 動画を再生したら、ほかの動画は止める */
+document.addEventListener("play", e => {
+  document.querySelectorAll("video").forEach(v => { if(v !== e.target) v.pause(); });
+}, true);
+
+/* ---- 自作エンジン ---- */
+(function(){
+  const E = C.ENGINE || {};
+  if(E.video){   /* 動画がある時だけ動画の枠を出す */
+    $("#engineVideo").innerHTML = `<div class="engine-video"><video src="${esc(E.video)}" controls preload="none" playsinline></video></div>`;
+  }
+  $("#engineBody").innerHTML = bodyHtml(E);   /* 作品と同じ書き方（sections）で表示 */
+  $("#engineLinks").innerHTML = (E.links || []).map(l =>
+    `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("");
+})();
+
+/* ---- 自作エンジンで作った作品（開きっぱなし） ---- */
+$("#engineWorksList").innerHTML = C.ENGINE_WORKS.map(w =>
+  `<article class="work-full"><h3>${esc(w.title)}</h3>${videoHtml(w)}${bodyHtml(w)}${linksHtml(w)}</article>`
+).join("");
+
+/* ---- 連絡先：url → リンクのボタン／copy → アドレス表示とコピーボタン ---- */
+if(C.contact_lead){ $("#contactLead").innerHTML = fmt(C.contact_lead); } else { $("#contactLead").remove(); }
+$("#contactList").innerHTML = C.contacts.map(c => c.copy
+  ? `<span class="copy-item"><span class="copy-label">${esc(c.label)}</span><span class="copy-addr">${esc(c.copy)}</span>` +
+    `<button type="button" class="copy-btn" data-copy="${esc(c.copy)}">コピー</button></span>`
+  : `<a class="btn" href="${esc(c.url)}"${/^mailto:/.test(c.url || "") ? "" : ' target="_blank" rel="noopener"'}>${esc(c.label)}</a>`
+).join("");
+
+/* コピーボタン（クリップボードが使えない環境でも動くように、予備の方法も用意） */
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch(e){
+    try{
+      const ta = document.createElement("textarea");
+      ta.value = t; ta.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand("copy"); ta.remove(); return ok;
+    }catch(e2){ return false; }
+  }
+}
+$("#contactList").addEventListener("click", async e => {
+  const btn = e.target.closest(".copy-btn"); if(!btn) return;
+  const ok = await copyText(btn.dataset.copy);
+  btn.textContent = ok ? "コピーしました" : "手で選んでコピー";
+  btn.classList.toggle("done", ok);
+  clearTimeout(btn._t);
+  btn._t = setTimeout(() => { btn.textContent = "コピー"; btn.classList.remove("done"); }, 2200);
+});
+
+/* =====================================================================
+   ナビと並び順（content.js の nav_text どおりにする。中身が空のセクションは隠す）
+   ===================================================================== */
+(function(){
+  const E = C.ENGINE || {};
+  const hasContent = {
+    top:         () => true,
+    about:       () => C.about_text.length || C.ABOUT_PHOTOS.length,
+    hobby:       () => C.HOBBIES.some(g => (g.items || []).length),
+    license:     () => C.license_text.length,
+    skills:      () => C.SKILLS.some(g => (g.items || []).length),
+    pr:          () => C.pr_text.length,
+    engine:      () => E.video || (E.sections || []).length || (E.links || []).length,
+    engineWorks: () => C.ENGINE_WORKS.length,
+    works:       () => C.WORKS.length,
+    contact:     () => C.contacts.length || C.contact_lead
+  };
+  const main = $("#main"), nav = $("#navList"), shown = new Set();
+
+  C.nav_text.forEach(item => {
+    if(!Array.isArray(item)) return;
+    const [id, label] = item;
+    const sec = document.getElementById(id);
+    if(!sec || !(hasContent[id] && hasContent[id]())) return;   // 無い・空ならナビにも出さない
+    shown.add(id);
+    main.appendChild(sec);                                      // nav_text の順にページも並べ替える
+    const h2 = sec.querySelector("h2"); if(h2) h2.textContent = label;
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="#${esc(id)}">${esc(label)}</a>`;
+    nav.appendChild(li);
+  });
+  /* nav_text に無い、または空のセクションは、ページから取り除く */
+  [...main.children].forEach(sec => { if(!shown.has(sec.id)) sec.remove(); });
+})();
+
+/* =====================================================================
+   背景の稲妻
+   ページの長さに合わせて、自動で配置します。どれだけページが長くなっても、
+   一番下まで同じ密度で続きます（設定を書き足す必要はありません）。
+   ・ページを「画面1つ分」ごとの帯に区切り、1つの帯に PER_SCREEN 個ずつ置く
+   ・位置は帯の番号から決まる（毎回同じ配置）ので、ページが伸びても既存の稲妻は動かない
+   ・画面の近くにある帯の分だけ作り、離れた帯の稲妻は消す（長いページでも軽い）
+   ・スクロールに合わせて、ゆっくりずれる動き付き
+   ===================================================================== */
+(function(){
+  const PER_SCREEN = 7;        // ★画面に見える稲妻の数の目安（端で切れるものや動きの分で、実際は8個前後に見えます）。増やすとにぎやか、減らすと静か
+  const SIZE_MIN = 60, SIZE_MAX = 150;   // 稲妻の大きさ（px）の範囲
+  const box = $("#bolts"), footer = document.querySelector("footer");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let vh = 0, vw = 0, H = 0, small = false;
+  const bands = new Map();     // 帯の番号 → その帯の稲妻
+
+  /* 決まった種から同じ乱数列を作る（毎回同じ配置にするため） */
+  const rng = seed => { let a = seed >>> 0; return () => {
+    a = (a + 0x6D2B79F5) >>> 0; let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; };
+  const shuffle = (arr, rand) => { for(let i = arr.length - 1; i > 0; i--){ const j = Math.floor(rand() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; };
+
+  /* 1つの帯に稲妻を置く（縦横とも均等にばらけるように） */
+  function makeBand(i){
+    const rand = rng(i * 7919 + 13), top = i * vh, list = [];
+    const n = PER_SCREEN;
+    const xs = shuffle([...Array(n).keys()], rand), ys = shuffle([...Array(n).keys()], rand);
+    for(let j = 0; j < n; j++){
+      const y = top + (ys[j] + rand()) / n * vh;
+      if(y > H) continue;                                  // ページの下端より外には置かない
+      const x = (xs[j] + rand()) / n * 100;
+      const size = (SIZE_MIN + rand() * (SIZE_MAX - SIZE_MIN)) * (small ? 0.65 : 1);
+      const im = new Image(); im.src = "images/kaminari.png"; im.alt = ""; im.draggable = false;
+      im.style.cssText = `left:${x - 3}%;top:${y}px;width:${size}px`;
+      box.appendChild(im);
+      list.push({im, y, r: -35 + rand() * 70, k: 0.3 + rand() * 0.5});
+    }
+    bands.set(i, list);
+  }
+  function clearAll(){ bands.forEach(l => l.forEach(b => b.im.remove())); bands.clear(); }
+
+  /* 画面の近くにある帯だけ作り、遠い帯は消す */
+  function sync(){
+    const sy = scrollY;
+    const lo = Math.max(0, Math.floor((sy - vh * 0.7) / vh)), hi = Math.floor((sy + vh * 1.8) / vh);
+    bands.forEach((l, i) => { if(i < lo || i > hi){ l.forEach(b => b.im.remove()); bands.delete(i); } });
+    for(let i = lo; i <= hi; i++) if(!bands.has(i) && i * vh < H) makeBand(i);
+    /* ゆっくりずれる動き（画面の中心から離れるほど、少しだけ遅れて動く） */
+    bands.forEach(l => l.forEach(({im, y, r, k}) => {
+      const d = sy + vh / 2 - y;
+      im.style.transform = reduce ? `rotate(${r}deg)` : `translateY(${d * k * 0.2}px) rotate(${r + d * 0.01 * k}deg)`;
+    }));
+  }
+
+  /* ページの高さ・画面の大きさが変わったら、作り直す */
+  let key = "";
+  function measure(){
+    vh = Math.max(400, Math.round(innerHeight / 100) * 100);   // スマホのアドレスバーの伸び縮みで揺れないよう丸める
+    vw = innerWidth; small = vw < 640;
+    H = footer.getBoundingClientRect().bottom + scrollY;
+    box.style.height = H + "px";
+    const k = [Math.round(H / 20), vh, small].join();
+    if(k !== key){ key = k; clearAll(); }
+    sync();
+  }
+  let tick = false;
+  addEventListener("scroll", () => { if(!tick){ tick = true; requestAnimationFrame(() => { sync(); tick = false; }); } }, {passive:true});
+  addEventListener("resize", measure);
+  addEventListener("load", measure);
+  if(window.ResizeObserver) new ResizeObserver(measure).observe(document.body);  // 作品を増やす等でページの高さが変わったとき
+  measure();
+})();
+
+/* =====================================================================
+   横にドラッグして動かす仕組み（上のナビと作品カードで共通）
+   ・マウスで押したまま左右に動かすと、横スクロールする
+   ・少し（5px）動かしたらドラッグ、動かさず離したらクリックとして扱う
+   ・離したあと、少し滑ってから止まる（0.94 を小さくすると早く止まる）
+   ・スマホ（タッチ）はブラウザ標準のスワイプを使うので、ここでは何もしない
+   ===================================================================== */
+function enableDragScroll(el){
+  let down = false, moved = false, startX = 0, startLeft = 0, vel = 0, lastX = 0, lastT = 0, raf = 0;
+  el.addEventListener("pointerdown", e => {
+    if(e.pointerType !== "mouse" || e.button !== 0) return;
+    if(el.scrollWidth <= el.clientWidth + 1) return;       // 動かす余地が無いときは何もしない
+    cancelAnimationFrame(raf);
+    down = true; moved = false; startX = lastX = e.clientX; startLeft = el.scrollLeft; vel = 0; lastT = performance.now();
+  });
+  addEventListener("pointermove", e => {
+    if(!down) return;
+    const dx = e.clientX - startX;
+    if(!moved && Math.abs(dx) > 5){ moved = true; el.classList.add("dragging"); }
+    if(!moved) return;
+    el.scrollLeft = startLeft - dx;
+    const now = performance.now(), dt = Math.max(now - lastT, 1);
+    vel = 0.8 * vel + 0.2 * ((lastX - e.clientX) / dt * 16);
+    lastX = e.clientX; lastT = now;
+  });
+  addEventListener("pointerup", () => {
+    if(!down) return;
+    down = false;
+    if(!moved) return;
+    el.classList.remove("dragging");
+    const glide = () => {
+      el.scrollLeft += vel; vel *= 0.94;
+      if(Math.abs(vel) > 0.3) raf = requestAnimationFrame(glide);
+    };
+    glide();
+  });
+  /* ドラッグ直後に、項目やカードが押されたことにならないようにする */
+  el.addEventListener("click", e => { if(moved){ e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+}
+
+/* ---- 上のナビを横にドラッグで動かす（画面が狭くて項目がはみ出すときだけ動く） ---- */
+(function(){
+  const ul = $("#navList");
+  enableDragScroll(ul);
+  const mark = () => ul.classList.toggle("scrollable", ul.scrollWidth > ul.clientWidth + 1);
+  addEventListener("resize", mark); addEventListener("load", mark); mark();
+})();
+
+/* ---- ナビ：今いる場所を黒く反転させる ---- */
+(function(){
+  const links = [...document.querySelectorAll("nav a")];
+  const map = new Map(links.map(a => [a.getAttribute("href").slice(1), a]));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if(e.isIntersecting){
+        links.forEach(a => a.classList.remove("active"));
+        const a = map.get(e.target.id);
+        if(a){ a.classList.add("active"); a.scrollIntoView({block:"nearest", inline:"center"}); }
+      }
+    });
+  }, {rootMargin:"-40% 0px -55% 0px"});
+  map.forEach((_, id) => { const el = document.getElementById(id); if(el) io.observe(el); });
+})();
+
+/* =====================================================================
+   その他の作品：横スライドのカードと、動画・説明の表示
+   ===================================================================== */
+(function(){
+  const track = $("#track"), detail = $("#detail");
+  if(!C.WORKS.length || !track) return;
+
+  /* WORKS からカードを作る */
+  track.innerHTML = C.WORKS.map((w,i) =>
+    `<button type="button" class="card" data-i="${i}"><img src="${esc(w.thumb)}" alt="" draggable="false"><span>${esc(w.title)}</span></button>`
+  ).join("");
+
+  enableDragScroll(track);
+
+  /* ◀ ▶ ボタン */
+  const step = () => Math.min(track.clientWidth * 0.8, 600);
+  document.querySelector(".arrow.prev").onclick = () => track.scrollBy({left:-step(), behavior:"smooth"});
+  document.querySelector(".arrow.next").onclick = () => track.scrollBy({left: step(), behavior:"smooth"});
+
+  /* 動画を止める／パネルを閉じる */
+  const stop = () => { const v = detail.querySelector("video"); if(v){ v.pause(); v.removeAttribute("src"); v.load(); } };
+  const close = () => {
+    stop();
+    detail.classList.remove("open");
+    detail.innerHTML = "";
+    track.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+  };
+
+  /* カードを押したとき */
+  track.addEventListener("click", e => {
+    const card = e.target.closest(".card"); if(!card) return;
+    if(card.classList.contains("selected")){ close(); return; }   // 同じカードをもう一度押すと閉じる
+    stop();
+    const w = C.WORKS[+card.dataset.i];
+    track.querySelectorAll(".card").forEach(c => c.classList.toggle("selected", c === card));
+
+    detail.innerHTML =
+      /* 右上の赤丸の×ボタン */
+      `<button type="button" class="close" aria-label="閉じる"><svg viewBox="0 0 20 20"><path d="M3 3 L17 17 M17 3 L3 17"/></svg></button>` +
+      videoHtml(w) + `<h3>${esc(w.title)}</h3>` + bodyHtml(w) + linksHtml(w);
+
+    detail.classList.add("open");
+    detail.querySelector(".close").onclick = close;
+    card.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+    setTimeout(() => detail.scrollIntoView({behavior:"smooth", block:"nearest"}), 60);
+  });
+})();
+</script>
 </body>
-
 </html>
